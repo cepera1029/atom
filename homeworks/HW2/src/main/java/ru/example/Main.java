@@ -17,40 +17,40 @@ public class Main {
     public static int bulls;
     public static int cows;
 
-    public static boolean Game_Core(String user_word, String Answer) {
+    public static boolean gameCore(String userWord, String answer) {
         bulls = 0;
         cows = 0;
         boolean result = false;
-        for (int i = 0; i < Answer.length(); i++) {
-            if (user_word.toCharArray()[i] == Answer.toCharArray()[i])
+        for (int i = 0; i < answer.length(); i++) {
+            if (userWord.toCharArray()[i] == answer.toCharArray()[i])
                 bulls++;
         }
-        if (bulls == Answer.length())
+        if (bulls == answer.length())
             result = true;
         else {
             char letter;
-            boolean[] GameFlag;
-            boolean[] PlayerFlag;
+            boolean[] gameFlag;
+            boolean[] playerFlag;
 
-            GameFlag = new boolean[Answer.length()];
-            PlayerFlag = new boolean[user_word.length()];
-            for (int i = 0; i < Answer.length(); i++) {
-                if (Answer.toCharArray()[i] == user_word.toCharArray()[i]) {
-                    GameFlag[i] = false;
-                    PlayerFlag[i] = false;
+            gameFlag = new boolean[answer.length()];
+            playerFlag = new boolean[userWord.length()];
+            for (int i = 0; i < answer.length(); i++) {
+                if (answer.toCharArray()[i] == userWord.toCharArray()[i]) {
+                    gameFlag[i] = false;
+                    playerFlag[i] = false;
                 } else {
-                    GameFlag[i] = true;
-                    PlayerFlag[i] = true;
+                    gameFlag[i] = true;
+                    playerFlag[i] = true;
                 }
 
             }
-            for (int i = 0; i < user_word.length(); i++) {
-                letter = user_word.toCharArray()[i];
-                if (user_word.indexOf(letter) != -1 && PlayerFlag[i]) {
-                    for (int j = 0; j < Answer.length(); j++) {
-                        if (letter == Answer.toCharArray()[j] && GameFlag[j]) {
-                            PlayerFlag[i] = false;
-                            GameFlag[j] = false;
+            for (int i = 0; i < userWord.length(); i++) {
+                letter = userWord.toCharArray()[i];
+                if (userWord.indexOf(letter) != -1 && playerFlag[i]) {
+                    for (int j = 0; j < answer.length(); j++) {
+                        if (letter == answer.toCharArray()[j] && gameFlag[j]) {
+                            playerFlag[i] = false;
+                            gameFlag[j] = false;
                             cows++;
                             break;
                         }
@@ -59,7 +59,7 @@ public class Main {
             }
             System.out.printf("bulls:%d cows:%d\n", bulls, cows);
         }
-        log.info("User word: " + user_word + "   Bulls: " + bulls + "   Cows: " + cows);
+        log.info("User word: " + userWord + "   Bulls: " + bulls + "   Cows: " + cows);
         return result;
     }
 
@@ -72,9 +72,9 @@ public class Main {
         ArrayList<String> arr = new ArrayList<String>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
 
-            String sCurrentLine;
-            while ((sCurrentLine = br.readLine()) != null) {
-                arr.add(sCurrentLine);
+            String scurrentline;
+            while ((scurrentline = br.readLine()) != null) {
+                arr.add(scurrentline);
                 count++;
             }
 
@@ -97,14 +97,14 @@ public class Main {
             attempts--;
             System.out.println("Your guess?");
             Scanner input = new Scanner(System.in);
-            String user_word = input.nextLine();
-            if (user_word.length() != answer.length()) {
+            String userWord = input.nextLine();
+            if (userWord.length() != answer.length()) {
                 System.out.println("Incorrect word length!");
                 System.out.printf("There are %d letters in my word\n", answer.length());
-                log.info("Incorrect word length: " + user_word.length() + "/" + answer.length());
+                log.info("Incorrect word length: " + userWord.length() + "/" + answer.length());
                 attempts++;
             } else
-                result = Game_Core(user_word, answer);
+                result = gameCore(userWord, answer);
             System.out.printf("Attempts remaining:%d\n", attempts);
         }
         if (!result) {

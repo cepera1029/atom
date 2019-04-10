@@ -8,6 +8,11 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
 
+checkstyle {
+    ignoreFailures = false
+    toolVersion = '7.5'
+    configFile = new File('../../config/checkstyle/checkstyle.xml')
+}
 
 repositories {
     mavenCentral()
